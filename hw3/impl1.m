@@ -18,10 +18,12 @@ imagesc(mag2db(rec_phase));
 saveas(gcf, "output/impl1_rec_phase.png")
 close(gcf)
 
+% reconstruct using spectrum of Building.tif and phase of Rectangle.tif
 compl1  = building_magni.*exp(1.0j*rec_phase);
 recon1  = center_freq(ifft2(compl1));
 impl1_1 = quantize_image(abs(recon1));
 
+% reconstruct using phase of Building.tif and spectrum of Rectangle.tif
 compl2  = rec_magni.*exp(1.0j*building_phase);
 recon2  = center_freq(ifft2(compl2));
 impl1_2 = quantize_image(abs(recon2));
