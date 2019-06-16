@@ -439,12 +439,10 @@ Fig.~\ref{fig:filter_spec} 을 보면 degradation 이 적용된 스팩트럼과,
                 &= F(u, v) + \frac{N(u, v)}{H(u, v)} \label{eq:filtered}
 \end{align}
 
-문제는 $H(u, v) \approx 0$ 인 경우에는 $\frac{N(u, v)}{H(u, v)}$ 이 발산하면서 $F(u, v)$ 를 압도해버리게 된다. 특히 이번 과에서 사용한 exponential 모델의 경우에는 $H$ 가 매우 빠르게 0 으로 수렴한다. 또한 8비트로 quantization 된 영상을 사용했기 때문에 noise 를 추가로 가하지 않아도 최대 $1/255$ 크기의 노이즈가 존재한다. 이 때문에 inverse filtering 을 사용하는 경우에는 복원 영역을 $r$ 을 이용해서 지정하고, Weiner filter 에서는 $\frac{S_n(u, v)}{S_s(u, v)}$ 상수를 지정해준다 (물론 실제로는 영상에 따라서는 quantization 노이즈의 실제 level이 1/255 보다 작을 수 있다). 결국 quantization noise 와 같이 자연적으로 영상에 존재하는 noise 성분으로 인해서 deconvolution 기반 방법을 통한 영상의 완벽한 복원은 가능하지 않다. 추가로, 컴퓨터를 통해서 연산을 수행하는 경우에 IEEE-754 실수 표현방법을 사용하게 되는데, 이 실수는 표현 가능한 유효 숫자와 실수 범위가 제한적이기 때문에 $H(u, v)$ 가 작아질수록 오차가 누적되게 된다. $1/H(u, v)$ 를 계산하게 되는 경우 특히 오차의 영향이 커진다.
+문제는 $H(u, v) \approx 0$ 인 경우에는 $\frac{N(u, v)}{H(u, v)}$ 이 발산하면서 $F(u, v)$ 를 압도해버리게 된다. 특히 이번 과에서 사용한 exponential 모델의 경우에는 $H$ 가 매우 빠르게 0 으로 수렴한다. 또한 8비트로 quantization 된 영상을 사용했기 때문에 noise 를 추가로 가하지 않아도 최대 $1/255$ 크기의 노이즈가 존재한다. 이 때문에 inverse filtering 을 사용하는 경우에는 복원 영역을 $r$ 을 이용해서 지정하고, Weiner filter 에서는 $\frac{S_n(u, v)}{S_s(u, v)}$ 상수를 지정해준다 (물론 실제로 영상에 따라서는 quantization 노이즈의 level이 1/255 보다 작을 수 있다). 결국 quantization noise 와 같이 자연적으로 영상에 존재하는 noise 성분으로 인해서 deconvolution 기반 방법을 통한 영상의 완벽한 복원은 가능하지 않다. 추가로, 컴퓨터를 통해서 연산을 수행하는 경우에 IEEE-754 실수 표현방법을 사용하게 되는데, 이 실수는 표현 가능한 유효 숫자와 실수 범위가 제한적이기 때문에 $H(u, v)$ 가 작아질수록 오차가 누적되게 된다. $1/H(u, v)$ 를 계산하게 되는 경우 특히 오차의 영향이 커진다.
 
 
 \section{conclusion}
-이번 과제에서는 2D convolution 을 이용한 linear spatial filtering 을 C++ 로 구현하였고, gaussian blur, box blur, laplacian edge enhancement, sobel edge detection 등의 고전적인 image operation 들을 직접 수행하였다. 이들의 효과를 실제 영상에 적용하여 확인하였고, extension padding 과 zero padding 두 종의 padding 을 구현하여 이들의 차이 또한 분석하였다.
+이번 과제에서는 다양한 distribution 으로 표현되는 noise 들을 영상에 가해서 덧셈으로 표현되는 영상 노이즈들의 특징을 확인해보았다. 또한 통계적인 방법들을 통해 이런 노이즈를 제거하는 필터들을 적용해보았다. 마지막으로, convolution 으로 표현되는 영상의 degradation 과 이를 제거하는 필터를 적용해봄으로서 영상의 복원에 관해서 알아보았다.
 
 \end{document}
-
-\end{table}
